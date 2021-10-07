@@ -1,9 +1,8 @@
 package com.udemy_ramacher.simplewebapp.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Publisher
@@ -11,22 +10,55 @@ public class Publisher
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String addressLineOne;
+	private String name;
 	private String city;
 	private String state;
 	private Integer zip;
+
+	@OneToMany
+	@JoinColumn(name= "publisher_id")
+	private Set<Book> books = new HashSet<>();
 
 	public Publisher()
 	{
 
 	}
 
-	public Publisher(String addressLineOne, String city, String state, Integer zip)
+	public Publisher(String name, String city, String state, Integer zip)
 	{
-		this.addressLineOne = addressLineOne;
+		this.name = name;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+
+		Publisher publisher = (Publisher) o;
+
+		return id != null ? id.equals(publisher.id) : publisher.id == null;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Publisher{" +
+				"id=" + id +
+				", addressLineOne='" + name + '\'' +
+				", city='" + city + '\'' +
+				", state='" + state + '\'' +
+				", zip=" + zip +
+				'}';
 	}
 
 	public Long getId()
@@ -39,14 +71,14 @@ public class Publisher
 		this.id = id;
 	}
 
-	public String getAddressLineOne()
+	public String getName()
 	{
-		return addressLineOne;
+		return name;
 	}
 
-	public void setAddressLineOne(String addressLineOne)
+	public void setName(String addressLineOne)
 	{
-		this.addressLineOne = addressLineOne;
+		this.name = addressLineOne;
 	}
 
 	public String getCity()
@@ -79,32 +111,13 @@ public class Publisher
 		this.zip = zip;
 	}
 
-	@Override
-	public boolean equals(Object o)
+	public Set<Book> getBooks()
 	{
-		if (this == o)
-		{
-			return true;
-		}
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
-
-		Publisher publisher = (Publisher) o;
-
-		return id != null ? id.equals(publisher.id) : publisher.id == null;
+		return books;
 	}
 
-	@Override
-	public String toString()
+	public void setBooks(Set<Book> books)
 	{
-		return "Publisher{" +
-				"id=" + id +
-				", addressLineOne='" + addressLineOne + '\'' +
-				", city='" + city + '\'' +
-				", state='" + state + '\'' +
-				", zip=" + zip +
-				'}';
+		this.books = books;
 	}
 }

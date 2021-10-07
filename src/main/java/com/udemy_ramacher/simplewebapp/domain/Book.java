@@ -13,6 +13,9 @@ public class Book
 	private String title;
 	private String isbn;
 
+	@ManyToOne
+	private Publisher publisher;
+
 	@ManyToMany
 	@JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
 			inverseJoinColumns = @JoinColumn(name = "author_id"))
@@ -32,6 +35,34 @@ public class Book
 	{
 		this.title = title;
 		this.isbn = isbn;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+
+		Book book = (Book) o;
+
+		return id != null ? id.equals(book.id) : book.id == null;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Book{" +
+				"id=" + id +
+				", title='" + title + '\'' +
+				", isbn='" + isbn + '\'' +
+				", authors=" + authors +
+				'}';
 	}
 
 	public Long getId()
@@ -74,31 +105,13 @@ public class Book
 		this.authors = authors;
 	}
 
-	@Override
-	public boolean equals(Object o)
+	public Publisher getPublisher()
 	{
-		if (this == o)
-		{
-			return true;
-		}
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
-
-		Book book = (Book) o;
-
-		return id != null ? id.equals(book.id) : book.id == null;
+		return publisher;
 	}
 
-	@Override
-	public String toString()
+	public void setPublisher(Publisher publisher)
 	{
-		return "Book{" +
-				"id=" + id +
-				", title='" + title + '\'' +
-				", isbn='" + isbn + '\'' +
-				", authors=" + authors +
-				'}';
+		this.publisher = publisher;
 	}
 }
