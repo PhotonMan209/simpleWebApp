@@ -2,122 +2,121 @@ package com.udemy_ramacher.simplewebapp.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Publisher
-{
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private String name;
-	private String city;
-	private String state;
-	private Integer zip;
+public class Publisher {
 
-	@OneToMany
-	@JoinColumn(name= "publisher_id")
-	private Set<Book> books = new HashSet<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public Publisher()
-	{
+    private String name;
 
-	}
+    private String addressLine1;
 
-	public Publisher(String name, String city, String state, Integer zip)
-	{
-		this.name = name;
-		this.city = city;
-		this.state = state;
-		this.zip = zip;
-	}
+    private String city;
 
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o)
-		{
-			return true;
-		}
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
+    private String state;
 
-		Publisher publisher = (Publisher) o;
+    private String zip;
 
-		return id != null ? id.equals(publisher.id) : publisher.id == null;
-	}
+    @OneToMany
+    @JoinColumn(name="publisher_id")
+    private Set<Book> books = new HashSet<>();
 
-	@Override
-	public String toString()
-	{
-		return "Publisher{" +
-				"id=" + id +
-				", addressLineOne='" + name + '\'' +
-				", city='" + city + '\'' +
-				", state='" + state + '\'' +
-				", zip=" + zip +
-				'}';
-	}
+    public Publisher(Long id, String name, String addressLine1, String city, String state, String zip) {
+        this.id = id;
+        this.name = name;
+        this.addressLine1 = addressLine1;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+    }
 
-	public Long getId()
-	{
-		return id;
-	}
+    public Publisher() {
 
-	public void setId(Long id)
-	{
-		this.id = id;
-	}
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setName(String addressLineOne)
-	{
-		this.name = addressLineOne;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getCity()
-	{
-		return city;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setCity(String city)
-	{
-		this.city = city;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getState()
-	{
-		return state;
-	}
+    public String getAddressLine1() {
+        return addressLine1;
+    }
 
-	public void setState(String state)
-	{
-		this.state = state;
-	}
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
 
-	public Integer getZip()
-	{
-		return zip;
-	}
+    public Set<Book> getBooks() {
+        return books;
+    }
 
-	public void setZip(Integer zip)
-	{
-		this.zip = zip;
-	}
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
 
-	public Set<Book> getBooks()
-	{
-		return books;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setBooks(Set<Book> books)
-	{
-		this.books = books;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Publisher publisher = (Publisher) o;
+        return Objects.equals(id, publisher.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Publisher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                '}';
+    }
 }

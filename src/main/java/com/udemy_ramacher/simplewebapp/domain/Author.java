@@ -2,102 +2,81 @@ package com.udemy_ramacher.simplewebapp.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Author
-{
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private String firstName;
-	private String lastJName;
+public class Author {
 
-	@ManyToMany(mappedBy = "authors")
-	private Set<Book> books = new HashSet<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String firstName;
+    private String lastName;
 
-	public Author()
-	{
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books = new HashSet<>();
 
-	}
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
-	public Author(String firstName, String lastJName)
-	{
-		this.firstName = firstName;
-		this.lastJName = lastJName;
-	}
+    public Author() {
 
-	public Long getId()
-	{
-		return id;
-	}
+    }
 
-	public void setId(Long id)
-	{
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getFirstName()
-	{
-		return firstName;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setFirstName(String firstName)
-	{
-		this.firstName = firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getLastJName()
-	{
-		return lastJName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastJName(String lastJName)
-	{
-		this.lastJName = lastJName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public Set<Book> getBooks()
-	{
-		return books;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setBooks(Set<Book> books)
-	{
-		this.books = books;
-	}
+    public Set<Book> getBooks() {
+        return books;
+    }
 
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o)
-		{
-			return true;
-		}
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
 
-		Author author = (Author) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(id, author.id);
+    }
 
-		return id != null ? id.equals(author.id) : author.id == null;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-	@Override
-	public int hashCode()
-	{
-		return 0;
-	}
-
-	@Override
-	public String toString()
-	{
-		return "Author{" +
-				"id=" + id +
-				", firstName='" + firstName + '\'' +
-				", lastJName='" + lastJName + '\'' +
-				", books=" + books +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 }
